@@ -1,0 +1,14 @@
+{
+  "name": "mala",
+  "version": "1.0.0",
+  "description": "Lightweight <canvas> drawing library",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "canvas"
+  ],
+  "author": "idris-maps",
+  "license": "GPL-2.0"
+}
