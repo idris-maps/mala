@@ -18,7 +18,7 @@ var Mala = require('mala')
 
 ### Use directly in an HTML page
 
-Download ```mala.min.js``` [here]()
+Download ```mala.min.js``` [here](https://raw.githubusercontent.com/idris-maps/mala/master/dist/mala.min.js)
 
 And add it to the page
 
