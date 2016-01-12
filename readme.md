@@ -1,6 +1,6 @@
 # Måla
 
-**Måla** is swedish for painting. This is a simple library to paint on the HTML5 ```<canvas>``` element.
+**Måla** is swedish for painting. This is a lightweight (less than 7kB) library to paint on the HTML5 ```<canvas>``` element.
 
 ## Setup
 

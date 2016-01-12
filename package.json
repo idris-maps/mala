@@ -4,11 +4,17 @@
   "description": "Lightweight <canvas> drawing library",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+				"browser": "browserify create_for_browser.js -o dist mala.js",
+				"mini": "minify --output dist/mala.min.js dist/mala.js"
   },
   "keywords": [
     "canvas"
   ],
   "author": "idris-maps",
-  "license": "GPL-2.0"
+  "license": "GPL-2.0",
+		"repository" : { 
+			"type" : "git", 
+			"url" : "https://github.com/idris-maps/mala"
+		}
 }
