@@ -188,10 +188,10 @@ firstLine.lineCap = 'round'
 ### Add a polygon
 
 ```
-var firstPolygon = paint.polygon([[10,10],[20,20],[20,30]])
+var firstPolygon = paint.polygon([[[10,10],[20,20],[20,30]]])
 ```
 
-```.polygon([[x1,y1],[x2,y2],[x3,y3]])```, like ```.line()```, takes one argument: an array of x and y coordinates. You do not need to complete the polygon (with the same coordinates at the end of the array as in the first) it will do that automatically. For curved sides of the polygon, add control points as with ```.line()```
+```.polygon([[[x1,y1],[x2,y2],[x3,y3]]])```, takes one argument: an array of arrays of x and y coordinates. For curved sides of the polygon, add control points as with ```.line()```
 
 #### Style options
 
@@ -206,6 +206,19 @@ Set styles like this:
 ```
 firstPolygon.fill = 'yellow'
 ```
+
+To make a hole in a polygon, add an array of coordinates in counter clockwise order.
+
+```
+var paint = new Mala('c', {width: 200, height: 100})
+var outlineArray = [[0,0],[0,100],[200,100]]
+var holeArray = [[10,60],[10,80],[30,80]]
+var polygonWithHole = paint.polygon([outlineArray, holeArray])
+paint.draw()
+```
+
+<img src="img/polygon_0.png" />
+
 ### Add text
 
 ```
@@ -475,5 +488,9 @@ If you want to permanently remove an object from the canvas:
 paint.remove(blinkingCircle)
 ```
 
+## Updates
 
+### 2.0.0
+
+Modified ```.polygon()``` API. It now takes an array of arrays of coordinates so that polygons can have holes.
 
