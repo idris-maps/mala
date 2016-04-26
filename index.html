@@ -1,0 +1,590 @@
+<!DOCTYPE html>
+<html>
+
+  <head>
+    <meta charset='utf-8'>
+    <meta http-equiv="X-UA-Compatible" content="chrome=1">
+    <meta name="description" content="Mala : Måla: a lightweight &lt;canvas&gt; drawing library">
+
+    <link rel="stylesheet" type="text/css" media="screen" href="stylesheets/stylesheet.css">
+
+    <title>Mala</title>
+  </head>
+
+  <body>
+
+    <!-- HEADER -->
+    <div id="header_wrap" class="outer">
+        <header class="inner">
+          <a id="forkme_banner" href="https://github.com/idris-maps/mala">View on GitHub</a>
+
+          <h1 id="project_title">Mala</h1>
+          <h2 id="project_tagline">Måla: a lightweight &lt;canvas&gt; drawing library</h2>
+
+            <section id="downloads">
+              <a class="zip_download_link" href="https://github.com/idris-maps/mala/zipball/master">Download this project as a .zip file</a>
+              <a class="tar_download_link" href="https://github.com/idris-maps/mala/tarball/master">Download this project as a tar.gz file</a>
+            </section>
+        </header>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div id="main_content_wrap" class="outer">
+      <section id="main_content" class="inner">
+        <h1>
+<a id="måla" class="anchor" href="#m%C3%A5la" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Måla</h1>
+
+<p><strong>Måla</strong> is swedish for painting. This is a lightweight (less than 7kB) library to paint on the HTML5 <code>&lt;canvas&gt;</code> element.</p>
+
+<h2>
+<a id="setup" class="anchor" href="#setup" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Setup</h2>
+
+<h3>
+<a id="use-with-browserify" class="anchor" href="#use-with-browserify" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use with browserify</h3>
+
+<pre><code>$ npm install mala
+</code></pre>
+
+<p>And </p>
+
+<pre><code>var Mala = require('mala')
+</code></pre>
+
+<h3>
+<a id="use-directly-in-an-html-page" class="anchor" href="#use-directly-in-an-html-page" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Use directly in an HTML page</h3>
+
+<p>Download <code>mala.min.js</code> <a href="https://raw.githubusercontent.com/idris-maps/mala/master/dist/mala.min.js">here</a></p>
+
+<p>And add it to the page</p>
+
+<pre><code>&lt;script src="mala.min.js"&gt;&lt;/script&gt;
+</code></pre>
+
+<h2>
+<a id="usage" class="anchor" href="#usage" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Usage</h2>
+
+<h3>
+<a id="initialise" class="anchor" href="#initialise" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Initialise</h3>
+
+<p>Add a <code>&lt;div&gt;</code> to your HTML with a unique id.</p>
+
+<pre><code>&lt;div id="myPainting"&gt;&lt;/div&gt;
+</code></pre>
+
+<p>Add a canvas within the div by creating a new instance of Måla that takes two arguments:</p>
+
+<ul>
+<li>The id of the div</li>
+<li>The desired size of the canvas</li>
+</ul>
+
+<pre><code>var paint = new Mala('myPainting', { width: 1000, height: 500 })
+</code></pre>
+
+<p>Now you can add <strong>rectangles</strong>, <strong>circles</strong>, <strong>lines</strong>, <strong>polygons</strong>, <strong>text</strong> and <strong>images</strong> (see below). When you are done, draw the canvas with</p>
+
+<pre><code>paint.draw()
+</code></pre>
+
+<h3>
+<a id="add-a-rectangle" class="anchor" href="#add-a-rectangle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add a rectangle</h3>
+
+<pre><code>var firstRectangle = paint.rect(10, 10, 100, 50)
+</code></pre>
+
+<p><code>.rect(x,y,width,height)</code> takes four arguments:</p>
+
+<ul>
+<li>x: The number of pixels to the right of the top-left corner</li>
+<li>y: The number of pixels down from the top-left corner</li>
+<li>width (in pixels)</li>
+<li>height (in pixels)</li>
+</ul>
+
+<h4>
+<a id="style-options" class="anchor" href="#style-options" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Style options</h4>
+
+<ul>
+<li>
+<code>fill</code>: Any HTML color (defaults to <code>'black'</code>)</li>
+<li>
+<code>stroke</code>: Any HTML color (defaults to <code>undefined</code>)</li>
+<li>
+<code>opacity</code>: A number between 0 and 1 (defaults to <code>1</code>)</li>
+<li>
+<code>lineWidth</code>: The width in pixels of the <code>stroke</code> (defaults to <code>1</code>)</li>
+<li>
+<code>lineJoin</code>: The shape of the corners of the <code>stroke</code> (defaults to <code>miter</code>, other possibilities are <code>round</code> and <code>bevel</code>)</li>
+</ul>
+
+<p>Set the styles like this:</p>
+
+<pre><code>firstRectangle.fill = 'blue'
+firstRectangle.stroke = 'red'
+</code></pre>
+
+<p>Example: </p>
+
+<pre><code>var paint = new Mala('c', {width: 200, height: 100})
+
+// Create the rectangle
+var firstRectangle = paint.rect(10, 10, 100, 50)
+
+// Set the style
+firstRectangle.fill = 'blue'
+firstRectangle.stroke = 'red'
+firstRectangle.lineWidth = 5
+
+// Render
+paint.draw()
+</code></pre>
+
+<p>Looks like this:</p>
+
+<p><img src="img/rectangle.png"></p>
+
+<h3>
+<a id="add-a-circle" class="anchor" href="#add-a-circle" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add a circle</h3>
+
+<pre><code>var firstCircle = paint.circle(50, 30, 20)
+</code></pre>
+
+<p><code>.circle(x,y,r)</code> takes four arguments:</p>
+
+<ul>
+<li>x: The number of pixels to the right of the top-left corner</li>
+<li>y: The number of pixels down from the top-left corner</li>
+<li>r: The radius in pixels</li>
+</ul>
+
+<h4>
+<a id="style-options-1" class="anchor" href="#style-options-1" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Style options</h4>
+
+<ul>
+<li>
+<code>fill</code>: Any HTML color (defaults to <code>'black'</code>)</li>
+<li>
+<code>stroke</code>: Any HTML color (defaults to <code>undefined</code>)</li>
+<li>
+<code>opacity</code>: A number between 0 and 1 (defaults to <code>1</code>)</li>
+</ul>
+
+<p>Set the styles like this:</p>
+
+<pre><code>firstCircle.fill = 'green'
+</code></pre>
+
+<h3>
+<a id="add-a-line" class="anchor" href="#add-a-line" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add a line</h3>
+
+<pre><code>var firstLine = paint.line([[10,10],[20,20],[20,30]])
+</code></pre>
+
+<p><code>.line([[x1,y1],[x2,y2],[x3,y3]])</code> takes one argument: an array of x and y coordinates</p>
+
+<p>To draw curves add one or two control points like this:</p>
+
+<pre><code>.line([[x1,y1],[ctrlPoint1-x,ctrlPoint1-y,x2,y2],[x3,y3]])
+</code></pre>
+
+<p>(with one control point)</p>
+
+<p>or </p>
+
+<pre><code>.line([[x1,y1],[ctrlPoint1-x,ctrlPoint1-y,ctrlPoint2-x,ctrlPoint2-y,x2,y2],[x3,y3]])
+</code></pre>
+
+<p>(with two control points)</p>
+
+<p>Example with a simple line:</p>
+
+<pre><code>paint.line([[20,50],[180,50])
+</code></pre>
+
+<p><img src="img/line_0.png"></p>
+
+<p>With one control point at [100,20]</p>
+
+<pre><code>paint.line([[20,50],[100,20,180,50])
+</code></pre>
+
+<p><img src="img/line_1.png"></p>
+
+<p>With two control points at [40,20] and [160,20]</p>
+
+<pre><code>paint.line([[20,50],[40,20,160,20,180,50])
+</code></pre>
+
+<p><img src="img/line_2.png"></p>
+
+<h4>
+<a id="style-options-2" class="anchor" href="#style-options-2" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Style options</h4>
+
+<ul>
+<li>
+<code>stroke</code>: Any HTML color (defaults to <code>'black'</code>)</li>
+<li>
+<code>opacity</code>: A number between 0 and 1 (defaults to <code>1</code>)</li>
+<li>
+<code>lineWidth</code>: The width in pixels of the <code>stroke</code> (defaults to <code>1</code>)</li>
+<li>
+<code>lineJoin</code>: The shape of the corners of the <code>stroke</code> (defaults to <code>miter</code>, other possibilities are <code>round</code> and <code>bevel</code>)</li>
+<li>
+<code>lineCap</code>: The shape of the ends of the line (defaults to <code>butt</code>, other possibilities are <code>round</code> and <code>square</code>)</li>
+</ul>
+
+<p>Set the styles like this:</p>
+
+<pre><code>firstLine.lineWidth = 5
+firstLine.lineCap = 'round'
+</code></pre>
+
+<h3>
+<a id="add-a-polygon" class="anchor" href="#add-a-polygon" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add a polygon</h3>
+
+<pre><code>var firstPolygon = paint.polygon([[[10,10],[20,20],[20,30]]])
+</code></pre>
+
+<p><code>.polygon([[[x1,y1],[x2,y2],[x3,y3]]])</code>, takes one argument: an array of arrays of x and y coordinates. For curved sides of the polygon, add control points as with <code>.line()</code></p>
+
+<h4>
+<a id="style-options-3" class="anchor" href="#style-options-3" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Style options</h4>
+
+<ul>
+<li>
+<code>fill</code>: Any HTML color (defaults to <code>'black'</code>)</li>
+<li>
+<code>stroke</code>: Any HTML color (defaults to <code>undefined</code>)</li>
+<li>
+<code>opacity</code>: A number between 0 and 1 (defaults to <code>1</code>)</li>
+<li>
+<code>lineWidth</code>: The width in pixels of the <code>stroke</code> (defaults to <code>1</code>)</li>
+<li>
+<code>lineJoin</code>: The shape of the corners of the <code>stroke</code> (defaults to <code>miter</code>, other possibilities are <code>round</code> and <code>bevel</code>)</li>
+</ul>
+
+<p>Set styles like this:</p>
+
+<pre><code>firstPolygon.fill = 'yellow'
+</code></pre>
+
+<p>To make a hole in a polygon, add an array of coordinates in counter clockwise order.</p>
+
+<pre><code>var paint = new Mala('c', {width: 200, height: 100})
+var outlineArray = [[0,0],[0,100],[200,100]]
+var holeArray = [[10,60],[10,80],[30,80]]
+var polygonWithHole = paint.polygon([outlineArray, holeArray])
+paint.draw()
+</code></pre>
+
+<p><img src="img/polygon_0.png"></p>
+
+<h3>
+<a id="add-text" class="anchor" href="#add-text" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add text</h3>
+
+<pre><code>var firstText = paint.text('Hello world', 20, 30)
+</code></pre>
+
+<p><code>.text(txt,x,y)</code> takes three arguments:</p>
+
+<ul>
+<li>txt: The text string</li>
+<li>x: The number of pixels to the right of the top-left corner</li>
+<li>y: The number of pixels down from the top-left corner</li>
+</ul>
+
+<h4>
+<a id="style-options-4" class="anchor" href="#style-options-4" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Style options</h4>
+
+<ul>
+<li>
+<code>fill</code>: Any HTML color (defaults to <code>'black'</code>)</li>
+<li>
+<code>font</code>: A string with the font-size (followed by <code>px</code>) and the font-family (defaults to <code>'12px sans-serif'</code>)</li>
+<li>
+<code>stroke</code>: Any HTML color (defaults to <code>undefined</code>)</li>
+<li>
+<code>opacity</code>: A number between 0 and 1 (defaults to <code>1</code>)</li>
+<li>
+<code>lineWidth</code>: The width in pixels of the <code>stroke</code> (defaults to <code>1</code>)</li>
+</ul>
+
+<p>Set styles like this:</p>
+
+<pre><code>firstText.font = '20px Helvetica'
+</code></pre>
+
+<p>Example:</p>
+
+<pre><code>var paint = new Mala('c', {width: 200, height: 100})
+
+// Add text
+var firstText = paint.text('Hello world', 20, 30)
+
+// Set style
+firstText.font = '30px Helvetica'
+firstText.fill = undefined
+firstText.stroke = 'red'
+
+// Render
+paint.draw()
+</code></pre>
+
+<p><img src="img/text.png"></p>
+
+<h3>
+<a id="add-an-image" class="anchor" href="#add-an-image" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Add an image</h3>
+
+<p>In order to add an image to the canvas, you first need to add the image file</p>
+
+<pre><code>var myImage = paint.addImageFile('theImage.png')
+</code></pre>
+
+<p><code>.addImageFile(pathToImage)</code> takes one argument, the path to the file.</p>
+
+<p><strong>..............................................................................</strong></p>
+
+<p><strong>WARNING</strong> </p>
+
+<p><code>paint.draw()</code> waits until all images are loaded to draw on canvas. If the path does not lead to a file, the <strong>canvas will not be drawn</strong>. </p>
+
+<p>If you are doing an animation, use <code>.addImageFile()</code> before starting the animation. Even if you are not going to use it in the first frames.  </p>
+
+<p><strong>..............................................................................</strong></p>
+
+<p>Once you have added a file with <code>.addImageFile()</code>, you can add the image to the canvas like this:</p>
+
+<pre><code>var firstImage = paint.image(myImage, 10, 10)
+</code></pre>
+
+<p><code>.image(img, x, y)</code> takes three arguments:</p>
+
+<ul>
+<li>img: the image loaded with <code>.addImageFile()</code>
+</li>
+<li>x: The number of pixels to the right of the top-left corner</li>
+<li>y: The number of pixels down from the top-left corner</li>
+</ul>
+
+<p>You can add an image several times using <code>.addImageFile()</code> once:</p>
+
+<pre><code>var myImage = paint.addImageFile('theImage.png')
+var firstImage = paint.image(myImage, 10, 10)
+var secondImage = paint.image(myImage, 100, 100)
+</code></pre>
+
+<h4>
+<a id="style-options-5" class="anchor" href="#style-options-5" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Style options</h4>
+
+<ul>
+<li>
+<code>opacity</code>: A number between 0 and 1 (defaults to <code>1</code>)</li>
+<li>
+<code>width</code>: the width in pixels (defaults to the image files naturalWidth)</li>
+<li>
+<code>height</code>: the height in pixels (defaults to the image files naturalHeight)</li>
+</ul>
+
+<p>If only <code>width</code>, or only <code>height</code>, is defined the aspect ratio will be preserved. If both are used, the image will have the defined <code>width</code> and <code>height</code>.</p>
+
+<p>Examples with this image (100px wide and 80px high)</p>
+
+<p><img src="img/troll.png"></p>
+
+<p>Add it to canvas</p>
+
+<pre><code>var paint = new Mala('c', {width: 200, height: 100})
+
+// Setting a gray background to better see the image on the canvas
+var r = paint.rect(0,0,200,100)
+r.fill = 'lightgray'
+
+// Add the file
+var img = paint.addImageFile('troll.png')
+
+// Add the image
+var img1 = paint.image(img, 0, 0)
+
+// Render
+paint.draw()
+</code></pre>
+
+<p>It looks like this:</p>
+
+<p><img src="img/img_0.png"></p>
+
+<p>If we set only the width:</p>
+
+<pre><code>var img1 = paint.image(img, 0, 0)
+img1.width = 50
+</code></pre>
+
+<p><img src="img/img_1.png"></p>
+
+<p>If we set only the height:</p>
+
+<pre><code>var img1 = paint.image(img, 0, 0)
+img1.height = 100
+</code></pre>
+
+<p><img src="img/img_2.png"></p>
+
+<p>If we set both width and height:</p>
+
+<pre><code>var img1 = paint.image(img, 0, 0)
+img1.width = 50
+img1.height = 100
+</code></pre>
+
+<p><img src="img/img_3.png"></p>
+
+<h3>
+<a id="layers" class="anchor" href="#layers" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Layers</h3>
+
+<p>When <code>paint.draw()</code> is triggered, all objects will be drawn in the order they have been added. The last above the ones before.</p>
+
+<p>If we draw a rectangle, then a circle. The circle will be on top of the rectangle.</p>
+
+<pre><code>var paint = new Mala('c', {width: 200, height: 100})
+
+var rect = paint.rect(0,0,100,50)
+rect.fill = 'blue'
+rect.layer = 1
+
+var circle = paint.circle(70,60,40)
+circle.fill = 'red'
+
+paint.draw()
+</code></pre>
+
+<p>Looks like this:</p>
+
+<p><img src="img/layer_0.png"></p>
+
+<p>By default all added objects are on layer 0 (the bottom layer). If we want the rectangle in the example above to be on top although it is created before:</p>
+
+<pre><code>var paint = new Mala('c', {width: 200, height: 100})
+
+var rect = paint.rect(0,0,100,50)
+rect.fill = 'blue'
+rect.layer = 1 // &lt;-- new line setting "rect" on layer 1
+
+var circle = paint.circle(70,60,40)
+circle.fill = 'red'
+
+paint.draw()
+</code></pre>
+
+<p>Looks like:</p>
+
+<p><img src="img/layer_1.png"></p>
+
+<h3>
+<a id="animation" class="anchor" href="#animation" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Animation</h3>
+
+<p><strong>Måla</strong> does not provide any animation method, you will have to use your own. It does have two features that will help you animating: </p>
+
+<ul>
+<li>the <code>.move()</code> method</li>
+<li>the <code>.show</code> property </li>
+</ul>
+
+<h4>
+<a id="move" class="anchor" href="#move" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>.move()</h4>
+
+<p>Every object (rectangle, circle, line, polygon, text or image) can be "moved" with the method <code>.move()</code>.</p>
+
+<p><code>.move(x,y)</code> takes two arguments:</p>
+
+<ul>
+<li>x: the number of pixels by which we want to move the object horizontally</li>
+<li>y: the number of pixels by which we want to move the object vertically</li>
+</ul>
+
+<p>If we want to have a square moving across the canvas from left to right:</p>
+
+<pre><code>var paint = new Mala('c', {width: 200, height: 100}) 
+
+var movingSquare = paint.rect(0,45,10,10) // &lt;-- create the square
+
+setInterval(function() {
+    movingSquare.move(1,0) // &lt;-- move it
+    paint.draw() // &lt;-- redraw the canvas to see the move
+},100)
+</code></pre>
+
+<p>This will move the square one pixel to the right at every interval. Here the interval is set to 100, a tenth of a second.</p>
+
+<p>Another way of animating is to move not at a certain interval in milliseconds but every time the screen is refreshed on your device by using <code>requestAnimationFrame()</code> instead of <code>setInterval()</code></p>
+
+<p>This does the same using <code>requestAnimationFrame()</code>. It is a bit faster because the screen is usually refreshed more often than every tenth of a second.</p>
+
+<pre><code>var paint = new Mala('c', {width: 200, height: 100}) 
+
+var movingSquare = paint.rect(0,45,10,10) // &lt;-- create the square
+
+requestAnimationFrame(animate)
+
+function animate() {
+    movingSquare.move(1,0) // &lt;-- move it
+    paint.draw() // &lt;-- redraw the canvas to see the move
+    requestAnimationFrame(animate)
+}
+</code></pre>
+
+<h4>
+<a id="show" class="anchor" href="#show" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>.show</h4>
+
+<p>Every object has a <code>show</code> attribute. By default it is set to <code>true</code>, you can set it to <code>false</code> when you want the object not to be shown on the next frame but do not want to remove it permanently.</p>
+
+<p>If we want to have a blinking circle:</p>
+
+<pre><code>var paint = new Mala('c', {width: 200, height: 100})
+
+var blinkingCircle = paint.circle(100,50, 20)
+
+setInterval(function() {
+
+    // set "show" to "false" if it is "true". If is "false", set it to "true"
+
+    if(blinkingCircle.show === true) {
+        blinkingCircle.show = false
+    } else {
+        blinkingCircle.show = true
+    }
+
+    paint.draw() // &lt;-- redraw
+
+},500)
+</code></pre>
+
+<h4>
+<a id="paintremove" class="anchor" href="#paintremove" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>paint.remove()</h4>
+
+<p>If you want to permanently remove an object from the canvas:</p>
+
+<pre><code>paint.remove(blinkingCircle)
+</code></pre>
+
+<h2>
+<a id="updates" class="anchor" href="#updates" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>Updates</h2>
+
+<h3>
+<a id="200" class="anchor" href="#200" aria-hidden="true"><span aria-hidden="true" class="octicon octicon-link"></span></a>2.0.0</h3>
+
+<p>Modified <code>.polygon()</code> API. It now takes an array of arrays of coordinates so that polygons can have holes.</p>
+      </section>
+    </div>
+
+    <!-- FOOTER  -->
+    <div id="footer_wrap" class="outer">
+      <footer class="inner">
+        <p class="copyright">Mala maintained by <a href="https://github.com/idris-maps">idris-maps</a></p>
+        <p>Published with <a href="https://pages.github.com">GitHub Pages</a></p>
+      </footer>
+    </div>
+
+    
+
+  </body>
+</html>
